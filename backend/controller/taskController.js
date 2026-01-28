@@ -5,7 +5,7 @@ exports.createTask = async (req, res) => {
   try {
     const task = new Task({
       ...req.body,
-      userId: req.user.id,
+      createdBy: req.user.id,
     });
 
     await task.save();
@@ -33,7 +33,7 @@ exports.getTasks = async (req, res) => {
 exports.updateTask = async (req, res) => {
   try {
     const task = await Task.findOneAndUpdate(
-      { _id: req.params.id, userId: req.user.id }, // 🔐 ownership check
+      { _id: req.params.id, createdBy: req.user.id }, // 🔐 ownership check
       req.body,
       { new: true }
     );
@@ -58,7 +58,7 @@ exports.deleteTask = async (req, res) => {
   try {
     const task = await Task.findOneAndDelete({
       _id: req.params.id,
-      userId: req.user.id, // 🔐 ownership check
+      createdBy: req.user.id, // 🔐 ownership check
     });
 
     if (!task) {

@@ -6,6 +6,7 @@ const connectDB=require('./config/db');
 const taskRoutes=require('./routes/taskRoutes');
 const authMiddleware=require('./middleware/authMiddleware');
 const {Server}=require('socket.io');
+const userRouter=require('./routes/userRouter');
 
 require('dotenv').config();
 
@@ -31,6 +32,7 @@ app.use(express.json());
 
 app.use('/api/auth',authRoutes);
 app.use('/api/tasks',authMiddleware,taskRoutes);   
+app.use('/api/users',authMiddleware,userRouter);
 server.listen(process.env.PORT||3000,()=>{
     console.log(`Server running on port ${process.env.PORT||3000}`);
 });

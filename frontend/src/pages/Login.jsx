@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 const Login = () => {
@@ -13,19 +13,11 @@ const Login = () => {
     event.preventDefault();
     // Handle login logic here
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/login",
-        {
-          email: formData.email,
-          password: formData.password,
-        },
-      );
+      const response = await api.post("/auth/login", formData);
       localStorage.setItem("token", response.data.token);
-      alert(response.data.message);
-      nav('/home')
-      console.log(response.data.token);
-    }catch (error) {
-      console.error("There was an error logging in the user!", error);
+      nav("/home");
+    } catch (error) {
+      alert("Login failed! Please check your credentials.");
     }
   }
   return (

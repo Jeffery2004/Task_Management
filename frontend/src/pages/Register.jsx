@@ -1,11 +1,11 @@
 import React,{useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../api/axios";
 
 const Register = () => {
   const nav = useNavigate();
   const [formData, setFormData] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
   });
@@ -14,23 +14,10 @@ const Register = () => {
     event.preventDefault();
     // Handle registration logic here
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/register",
-        {
-          name: formData.username,
-          email: formData.email,
-          password: formData.password,
-        },
-      );
-      if(response.data.message==="User registered successfully"){
-        console.log("User registered successfully");
-        alert("User registered successfully");
-        nav("/");
-        return;
-      }else{
-        alert("Registration failed");
-        return;
-      }
+      console.log(formData);
+      const response = await api.post("/auth/register", formData);
+      alert(response.data.message);
+      nav("/");
     } catch (error) {
       console.error("There was an error registering the user!", error);
     }
@@ -49,7 +36,7 @@ const Register = () => {
               id="username"
               name="username"
               onChange={(e) =>
-                setFormData({ ...formData, username: e.target.value })
+                setFormData({ ...formData, name: e.target.value })
               }
               required
             />

@@ -12,7 +12,6 @@ const Register = () => {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    // Handle registration logic here
     try {
       console.log(formData);
       const response = await api.post("/auth/register", formData);

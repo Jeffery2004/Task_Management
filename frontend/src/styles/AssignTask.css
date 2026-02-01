@@ -1,0 +1,116 @@
+/* Full page background */
+.assign-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+/* Card */
+.assign-card {
+  background: #ffffff;
+  width: 420px;
+  padding: 30px 28px;
+  border-radius: 12px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.4s ease;
+}
+
+/* Animation */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Title */
+.assign-card h2 {
+  text-align: center;
+  margin-bottom: 18px;
+  color: #333;
+}
+
+/* User list */
+.user-list {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 10px 12px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* Individual user */
+.user-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.user-item input {
+  accent-color: #667eea;
+}
+
+/* Empty text */
+.empty-text {
+  text-align: center;
+  color: #777;
+  font-size: 14px;
+}
+
+/* Actions */
+.assign-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+/* Buttons */
+.assign-actions button {
+  padding: 8px 18px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  background: #667eea;
+  color: #fff;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.assign-actions button:hover {
+  background: #5a6fdc;
+  transform: translateY(-1px);
+}
+
+.assign-actions button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Secondary button */
+.assign-actions .secondary {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.assign-actions .secondary:hover {
+  background: #d5d5d5;
+}
+
+/* Loading */
+.loading-text {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 16px;
+}

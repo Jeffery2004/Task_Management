@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import api from "../api/axios";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import "../styles/HomePage.css";
+import socket from "../socket";
 
 const HomePage = () => {
   const [tasks, setTasks] = useState([]);
@@ -14,6 +16,32 @@ const HomePage = () => {
 
   useEffect(() => {
     fetchTasks();
+  }, []);
+
+  useEffect(() => {
+    socket.connect();
+
+    socket.on("taskCreated", (task) => {
+      setTasks((prev) => [task, ...prev]);
+    });
+
+    socket.on("taskUpdated", (updatedTask) => {
+      setTasks((prev) =>
+        prev.map((t) => (t._id === updatedTask._id ? updatedTask : t)),
+      );
+    });
+
+    socket.on("taskDeleted", (taskId) => {
+      setTasks((prev) => prev.filter((t) => t._id !== taskId));
+    });
+
+    socket.on("taskAssigned", () => {
+      fetchTasks(); // safest approach
+    });
+
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   // 🔹 FETCH TASKS
@@ -33,9 +61,7 @@ const HomePage = () => {
     try {
       const res = await api.put(`/tasks/${taskId}`, { status });
 
-      setTasks(tasks.map(t =>
-        t._id === taskId ? res.data : t
-      ));
+      setTasks(tasks.map((t) => (t._id === taskId ? res.data : t)));
     } catch (err) {
       console.error("Status update failed", err);
     }
@@ -47,7 +73,7 @@ const HomePage = () => {
 
     try {
       await api.delete(`/tasks/${taskId}`);
-      setTasks(tasks.filter(t => t._id !== taskId));
+      setTasks(tasks.filter((t) => t._id !== taskId));
     } catch (err) {
       console.error("Delete failed", err);
     }
@@ -63,10 +89,10 @@ const HomePage = () => {
     try {
       const res = await api.put(`/tasks/${task._id}`, {
         title,
-        description
+        description,
       });
 
-      setTasks(tasks.map(t => (t._id === task._id ? res.data : t)));
+      setTasks(tasks.map((t) => (t._id === task._id ? res.data : t)));
     } catch (err) {
       console.error("Update failed", err);
     }
@@ -75,79 +101,53 @@ const HomePage = () => {
   if (loading) return <h3>Loading tasks...</h3>;
 
   return (
-    <div>
-      <button
-        onClick={() => {
-          localStorage.removeItem("token");
-          navigate("/");
-        }}
-      >
-        Logout
-      </button>
+    <div className="home-container">
+      <div className="home-header">
+        <h2>Task Dashboard</h2>
 
-      <button onClick={() => navigate("/createtask")}>
-        Create Task
-      </button>
+        <div className="header-actions">
+          <button onClick={() => navigate("/createtask")}>+ Create Task</button>
 
-      <h2>Task Dashboard</h2>
+          <button
+            className="logout-btn"
+            onClick={() => {
+              localStorage.removeItem("token");
+              navigate("/");
+            }}
+          >
+            Logout
+          </button>
+        </div>
+      </div>
 
       {tasks.length === 0 ? (
-        <p>No tasks available</p>
+        <p className="empty-text" style={{ color: "black" }}>No tasks available</p>
       ) : (
-        tasks.map(task => {
+        tasks.map((task) => {
           const isCreator = task.createdBy === loggedInUserId;
 
           return (
-            <div
-              key={task._id}
-              style={{
-                border: "1px solid #ccc",
-                padding: "12px",
-                marginBottom: "12px"
-              }}
-            >
-              {/* 🔹 LABEL */}
-              <p style={{ fontWeight: "bold" }}>
-                {isCreator ? (
-                  <span style={{ color: "green" }}>
-                    Created by you
-                  </span>
-                ) : (
-                  <span style={{ color: "blue" }}>
-                    Assigned to you
-                  </span>
-                )}
-              </p>
+            <div className="task-card" key={task._id}>
+              <div className="task-header">
+                <span
+                  className={isCreator ? "badge creator" : "badge assigned"}
+                >
+                  {isCreator ? "Created by you" : "Assigned to you"}
+                </span>
+
+                <span className={`status ${task.status}`}>{task.status}</span>
+              </div>
 
               <h3>{task.title}</h3>
-              <p>{task.description || "No description"}</p>
-
-              {/* STATUS DISPLAY */}
-              <p>
-                <strong>Status:</strong>{" "}
-                <span
-                  style={{
-                    color:
-                      task.status === "completed"
-                        ? "green"
-                        : task.status === "in-progress"
-                        ? "orange"
-                        : "red",
-                    fontWeight: "bold",
-                    marginRight: "10px"
-                  }}
-                >
-                  {task.status}
-                </span>
+              <p className="description">
+                {task.description || "No description"}
               </p>
 
-              {/* 🔁 CHANGE STATUS (CREATOR ONLY) */}
               {isCreator && (
                 <select
+                  className="status-select"
                   value={task.status}
-                  onChange={(e) =>
-                    updateStatus(task._id, e.target.value)
-                  }
+                  onChange={(e) => updateStatus(task._id, e.target.value)}
                 >
                   <option value="pending">Pending</option>
                   <option value="in-progress">In Progress</option>
@@ -155,34 +155,28 @@ const HomePage = () => {
                 </select>
               )}
 
-              <br /><br />
+              <div className="task-actions">
+                <button onClick={() => navigate(`/tasks/${task._id}/view`)}>
+                  View
+                </button>
 
-              {/* 🔐 ACTIONS */}
-              <button
-                onClick={() => navigate(`/tasks/${task._id}`)}
-              >
-                View
-              </button>
-
-              {isCreator && (
-                <>
-                  <button
-                    onClick={() =>
-                      navigate(`/tasks/${task._id}/assign`)
-                    }
-                  >
-                    Assign
-                  </button>
-
-                  <button onClick={() => updateTask(task)}>
-                    Update
-                  </button>
-
-                  <button onClick={() => deleteTask(task._id)}>
-                    Delete
-                  </button>
-                </>
-              )}
+                {isCreator && (
+                  <>
+                    <button
+                      onClick={() => navigate(`/tasks/${task._id}/assign`)}
+                    >
+                      Assign
+                    </button>
+                    <button onClick={() => updateTask(task)}>Update</button>
+                    <button
+                      className="danger"
+                      onClick={() => deleteTask(task._id)}
+                    >
+                      Delete
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
           );
         })

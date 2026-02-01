@@ -1,0 +1,116 @@
+.home-container {
+  max-width: 900px;
+  margin: 30px auto;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.header-actions button {
+  margin-left: 10px;
+}
+
+.logout-btn {
+  background: #e74c3c;
+}
+
+.logout-btn:hover {
+  background: #d63a2b;
+}
+
+.task-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 18px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.badge.creator {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.badge.assigned {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.status {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.status.pending {
+  color: #e53935;
+}
+
+.status.in-progress {
+  color: #fb8c00;
+}
+
+.status.completed {
+  color: #43a047;
+}
+
+.description {
+  margin: 10px 0 15px;
+  color: #555;
+}
+
+.status-select {
+  padding: 6px;
+  margin-bottom: 10px;
+}
+
+.task-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.task-actions button {
+  padding: 7px 14px;
+  border-radius: 6px;
+  border: none;
+  background: #667eea;
+  color: #fff;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.task-actions button:hover {
+  background: #5a6fdc;
+}
+
+.task-actions .danger {
+  background: #e74c3c;
+}
+
+.task-actions .danger:hover {
+  background: #d63a2b;
+}
+
+.empty-text {
+  text-align: center;
+  color: #777;
+  margin-top: 50px;
+}

@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage.jsx";
 import CreateTask from "./pages/CreateTask.jsx";
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 import AssignTask from "./pages/AssignTask.jsx";
+import ViewPage from "./pages/ViewPage.jsx";
 function App() {
 
   return (
@@ -14,7 +15,9 @@ function App() {
         <Route path="/signup" element={<Register />} />
         <Route path="/home"  element={<ProtectedRoute><HomePage /></ProtectedRoute>} />   
         <Route path="/createtask"  element={<ProtectedRoute><CreateTask /></ProtectedRoute>} />   
-        <Route path="/tasks/:id/assign"  element={<ProtectedRoute><AssignTask /></ProtectedRoute>} />   
+        <Route path="/tasks/:id/assign"  element={<ProtectedRoute><AssignTask /></ProtectedRoute>} />  
+        <Route path="/tasks/:id/view"  element={<ProtectedRoute><ViewPage /></ProtectedRoute>} /> 
+        
       </Routes>
     </BrowserRouter>
   );

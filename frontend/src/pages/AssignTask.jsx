@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../api/axios";
 import { useNavigate, useParams } from "react-router-dom";
+import "../styles/AssignTask.css";
 
 const AssignTask = () => {
   const { id } = useParams();
@@ -13,17 +14,13 @@ const AssignTask = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [id]);
 
   const fetchData = async () => {
     try {
-      // 🔹 Fetch task
       const taskRes = await api.get(`/tasks/${id}`);
-      setAssignedUserIds(
-        taskRes.data.assignedTo.map(u => u._id)
-      );
+      setAssignedUserIds(taskRes.data.assignedTo.map(u => u._id));
 
-      // 🔹 Fetch users
       const usersRes = await api.get("/users");
       setUsers(usersRes.data);
     } catch (err) {
@@ -51,53 +48,56 @@ const AssignTask = () => {
       await api.put(`/tasks/${id}/assign-multiple`, {
         userIds: selectedUsers
       });
-
       alert("Task assigned successfully");
       navigate("/home");
-    } catch (err) {
+    } catch {
       alert("Assignment failed");
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p className="loading-text">Loading...</p>;
 
-  // 🔥 FILTER USERS (remove already assigned)
   const assignableUsers = users.filter(
     user => !assignedUserIds.includes(user._id)
   );
 
   return (
-    <div style={{ maxWidth: "400px", margin: "30px auto" }}>
-      <h2>Assign Task</h2>
+    <div className="assign-page">
+      <div className="assign-card">
+        <h2>Assign Task</h2>
 
-      {assignableUsers.length === 0 ? (
-        <p>All users are already assigned.</p>
-      ) : (
-        <div style={{ border: "1px solid #ccc", padding: "10px" }}>
-          {assignableUsers.map(user => (
-            <label
-              key={user._id}
-              style={{ display: "block", marginBottom: "8px" }}
-            >
-              <input
-                type="checkbox"
-                checked={selectedUsers.includes(user._id)}
-                onChange={() => toggleUser(user._id)}
-              />{" "}
-              {user.name}
-            </label>
-          ))}
+        {assignableUsers.length === 0 ? (
+          <p className="empty-text">All users are already assigned.</p>
+        ) : (
+          <div className="user-list">
+            {assignableUsers.map(user => (
+              <label key={user._id} className="user-item">
+                <input
+                  type="checkbox"
+                  checked={selectedUsers.includes(user._id)}
+                  onChange={() => toggleUser(user._id)}
+                />
+                <span>{user.name}</span>
+              </label>
+            ))}
+          </div>
+        )}
+
+        <div className="assign-actions">
+          <button
+            onClick={assignTask}
+            disabled={assignableUsers.length === 0}
+          >
+            Assign
+          </button>
+          <button
+            className="secondary"
+            onClick={() => navigate("/home")}
+          >
+            Cancel
+          </button>
         </div>
-      )}
-
-      <br />
-
-      <button onClick={assignTask} disabled={assignableUsers.length === 0}>
-        Assign
-      </button>
-      <button onClick={() => navigate("/home")} style={{ marginLeft: "10px" }}>
-        Cancel
-      </button>
+      </div>
     </div>
   );
 };

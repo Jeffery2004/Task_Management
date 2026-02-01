@@ -1,0 +1,125 @@
+/* Page background */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  height: 100vh;
+}
+
+/* Container */
+.form-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 80px);
+}
+
+/* Header */
+.header {
+  text-align: center;
+  padding-top: 40px;
+  color: #fff;
+}
+
+.header h1 {
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* Login Card */
+form {
+  background: #ffffff;
+  width: 360px;
+  padding: 30px 28px;
+  border-radius: 10px;
+  box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Form group */
+.form-group {
+  margin-bottom: 18px;
+}
+
+/* Labels */
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+/* Inputs */
+.form-group input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Input focus */
+.form-group input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 11px;
+  margin-top: 10px;
+  background: #667eea;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+/* Button hover */
+button:hover {
+  background: #5a6fdc;
+  transform: translateY(-1px);
+}
+
+/* Button active */
+button:active {
+  transform: translateY(0);
+}
+
+/* Signup text */
+form p {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Signup link */
+form a {
+  color: #667eea;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+form a:hover {
+  text-decoration: underline;
+}

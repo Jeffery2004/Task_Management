@@ -2,6 +2,7 @@ import React from "react";
 import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import "../styles/Login.css";
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",

@@ -1,7 +1,7 @@
 import React,{useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
-
+import "../styles/Register.css";
 const Register = () => {
   const nav = useNavigate();
   const [formData, setFormData] = useState({
@@ -19,6 +19,7 @@ const Register = () => {
       nav("/");
     } catch (error) {
       console.error("There was an error registering the user!", error);
+      alert("Registration failed! Please try again.");
     }
   }
   return (

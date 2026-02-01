@@ -11,7 +11,7 @@ exports.register=async (req, res) => {
         await newUser.save();
         res.status(201).json({ message: "User registered successfully" });
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ error: "Invalid credentials" });
     }   
 };
 

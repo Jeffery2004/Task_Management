@@ -1,24 +1,20 @@
-const express = require("express");
+const router = require("express").Router();
 const auth = require("../middleware/authMiddleware");
+
 const {
   createTask,
   getTasks,
+  getTaskById,
   updateTask,
   deleteTask,
-  assignTaskToMultiple, 
+  assignTaskToMultiple
 } = require("../controller/taskController");
-
-const router = express.Router();
 
 router.post("/", auth, createTask);
 router.get("/", auth, getTasks);
+router.get("/:id", auth, getTaskById);
 router.put("/:id", auth, updateTask);
 router.delete("/:id", auth, deleteTask);
-router.put(
-  "/:id/assign-multiple",
-  auth,
-  assignTaskToMultiple
-);
-
+router.put("/:id/assign-multiple", auth, assignTaskToMultiple);
 
 module.exports = router;

@@ -1,0 +1,81 @@
+{
+  "info": {
+    "_postman_id": "0bc5d0a3-e94c-417e-aa82-05dbb5d8fb92",
+    "name": "Task_Management",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Signup",
+      "id": "9d20724e-fea9-4d57-ac17-3ead08e1730a",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Login",
+      "id": "7b51c826-2f10-4cba-b73f-3163f4ad0f36",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Create task",
+      "id": "8e3268a8-4875-4a84-b337-3b0420fa4ec6",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Get tasks",
+      "id": "de8e6150-563b-4927-9b86-ebe4fc775bf5",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "update task",
+      "id": "4d9b0d33-00db-49e4-98d9-b26bb9954386",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "delete task",
+      "id": "a0e64841-ee10-4522-bf38-1b9af2404d7e",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "assign task",
+      "id": "52e183be-24c5-4824-bf6b-7d3fabc98e6d",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "get all users",
+      "id": "c9b15142-a13c-41d5-8402-e2d4edb4ecfb",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ]
+}

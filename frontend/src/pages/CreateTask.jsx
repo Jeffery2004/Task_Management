@@ -36,10 +36,11 @@ const CreateTask = () => {
         </div>
         <div>
             <label>Description:</label>
-            <input
+            <textarea
                 type="text"
                 value={taskData.description}
                 onChange={(e) => setTaskData({...taskData, description: e.target.value})}
+                width="500px"
             />
         </div>
         <button type="submit">Create Task</button>

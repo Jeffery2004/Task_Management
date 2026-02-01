@@ -1,0 +1,36 @@
+{
+  "info": {
+    "_postman_id": "b10b453d-f09d-4423-aac3-697c5365971b",
+    "name": "Trip_Itinerary",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "id": "ee730fbb-0538-4698-8930-ee5c452c382f",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "id": "bd9935df-0ef1-405d-9d15-f874e5682789",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "id": "7e3144e3-8d6c-48f2-acbb-7870d119ef98",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ]
+}
